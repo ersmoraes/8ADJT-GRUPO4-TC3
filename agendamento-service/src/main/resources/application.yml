@@ -1,0 +1,44 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: agendamento-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/hospital_agendamento?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+jwt:
+  secret: hospitalSecretKey123456789hospitalSecretKey123456789
+  expiration: 86400
+
+rabbitmq:
+  exchange:
+    consultas: consultas.exchange
+  queue:
+    notificacoes: notificacoes.queue
+    historico: historico.queue
+  routing:
+    key:
+      notificacoes: consulta.notificacao
+      historico: consulta.historico
+
+logging:
+  level:
+    com.hospital: DEBUG
+    org.springframework.security: DEBUG

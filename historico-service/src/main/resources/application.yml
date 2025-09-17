@@ -1,0 +1,52 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: historico-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/hospital_historico?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+
+graphiql:
+  mapping: /graphiql
+  endpoint:
+    graphql: /graphql
+  enabled: true
+
+rabbitmq:
+  exchange:
+    consultas: consultas.exchange
+  queue:
+    historico: historico.queue
+  routing:
+    key:
+      historico: consulta.historico
+
+logging:
+  level:
+    com.hospital: DEBUG
+    graphql: DEBUG
