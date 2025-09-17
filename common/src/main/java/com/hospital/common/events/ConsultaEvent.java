@@ -1,8 +1,12 @@
 package com.hospital.common.events;
 
 import com.hospital.common.dto.ConsultaDTO;
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+@Getter
+@Setter
 public class ConsultaEvent {
     private String tipoEvento; // CRIADA, EDITADA, CANCELADA
     private ConsultaDTO consulta;

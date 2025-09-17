@@ -36,5 +36,11 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version> <!-- versão estável em 2025 -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

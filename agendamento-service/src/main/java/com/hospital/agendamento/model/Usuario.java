@@ -1,11 +1,14 @@
 package com.hospital.agendamento.model;
 
 import com.hospital.common.enums.TipoUsuario;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
-@Getters
-@Setters
+@Getter
+@Setter
 @Table(name = "usuarios")
 public class Usuario {
     @Id

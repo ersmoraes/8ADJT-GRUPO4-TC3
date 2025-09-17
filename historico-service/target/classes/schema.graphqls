@@ -1,0 +1,30 @@
+type HistoricoConsulta {
+    consultaId: ID!
+    pacienteId: ID!
+    medicoId: ID!
+    pacienteNome: String!
+    medicoNome: String!
+    pacienteEmail: String!
+    dataHora: String!
+    observacoes: String
+    status: StatusConsulta!
+    dataAtualizacao: String!
+}
+
+enum StatusConsulta {
+    AGENDADA
+    CONFIRMADA
+    CANCELADA
+    REALIZADA
+    NAO_COMPARECEU
+}
+
+type Query {
+    consultasPorPaciente(pacienteId: ID!): [HistoricoConsulta]
+    consultasPorMedico(medicoId: ID!): [HistoricoConsulta]
+    consultasPorStatus(status: StatusConsulta!): [HistoricoConsulta]
+    consultasFuturasPorPaciente(pacienteId: ID!): [HistoricoConsulta]
+    consultasPorPeriodo(dataInicio: String!, dataFim: String!): [HistoricoConsulta]
+    consultaPorId(consultaId: ID!): HistoricoConsulta
+    todasConsultas: [HistoricoConsulta]
+}

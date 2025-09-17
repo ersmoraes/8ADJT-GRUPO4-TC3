@@ -1,10 +1,15 @@
 package com.hospital.historico.model;
 
 import com.hospital.common.enums.StatusConsulta;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "historico_consultas")
 public class HistoricoConsulta {
     @Id

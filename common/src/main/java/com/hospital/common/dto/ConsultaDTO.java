@@ -1,8 +1,13 @@
 package com.hospital.common.dto;
 
 import com.hospital.common.enums.StatusConsulta;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class ConsultaDTO {
     private Long id;
     private Long pacienteId;

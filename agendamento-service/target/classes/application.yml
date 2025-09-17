@@ -1,11 +1,11 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
-    name: historico-service
+    name: agendamento-service
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_historico?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/hospital_agendamento?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,40 +23,22 @@ spring:
     username: guest
     password: guest
 
-graphql:
-  servlet:
-    mapping: /graphql
-    enabled: true
-    corsEnabled: true
-  tools:
-    schema-location-pattern: "**/*.graphqls"
-
-graphiql:
-  mapping: /graphiql
-  endpoint:
-    graphql: /graphql
-  enabled: true
+jwt:
+  secret: hospitalSecretKey123456789hospitalSecretKey123456789
+  expiration: 86400
 
 rabbitmq:
   exchange:
     consultas: consultas.exchange
   queue:
+    notificacoes: notificacoes.queue
     historico: historico.queue
   routing:
     key:
+      notificacoes: consulta.notificacao
       historico: consulta.historico
-
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health, info, metrics
-    endpoint:
-      health:
-        show-details: always
-
 
 logging:
   level:
     com.hospital: DEBUG
-    graphql: DEBUG
+    org.springframework.security: DEBUG
