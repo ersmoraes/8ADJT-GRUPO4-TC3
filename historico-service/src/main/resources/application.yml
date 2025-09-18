@@ -5,7 +5,7 @@ spring:
   application:
     name: historico-service
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_historico?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/hospital_historico?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
