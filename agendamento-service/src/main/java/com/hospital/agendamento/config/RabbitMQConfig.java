@@ -15,14 +15,14 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.exchange.consultas}")
     private String consultasExchange;
     
-    @Value("${rabbitmq.queue.notificacoes}")
-    private String notificacoesQueue;
+    @Value("${rabbitmq.queue.notificacao}")
+    private String notificacaoQueue;
     
     @Value("${rabbitmq.queue.historico}")
     private String historicoQueue;
     
-    @Value("${rabbitmq.routing.key.notificacoes}")
-    private String notificacoesRoutingKey;
+    @Value("${rabbitmq.routing.key.notificacao}")
+    private String notificacaoRoutingKey;
     
     @Value("${rabbitmq.routing.key.historico}")
     private String historicoRoutingKey;
@@ -33,8 +33,8 @@ public class RabbitMQConfig {
     }
     
     @Bean
-    public Queue notificacoesQueue() {
-        return QueueBuilder.durable(notificacoesQueue).build();
+    public Queue notificacaoQueue() {
+        return QueueBuilder.durable(notificacaoQueue).build();
     }
     
     @Bean
@@ -43,11 +43,11 @@ public class RabbitMQConfig {
     }
     
     @Bean
-    public Binding notificacoesBinding() {
+    public Binding notificacaoBinding() {
         return BindingBuilder
-                .bind(notificacoesQueue())
+                .bind(notificacaoQueue())
                 .to(consultasExchange())
-                .with(notificacoesRoutingKey);
+                .with(notificacaoRoutingKey);
     }
     
     @Bean

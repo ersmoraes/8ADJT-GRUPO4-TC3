@@ -12,7 +12,7 @@ public class ConsultaEventListener {
     @Autowired
     private NotificacaoService notificacaoService;
     
-    @RabbitListener(queues = "${rabbitmq.queue.notificacoes}")
+    @RabbitListener(queues = "${rabbitmq.queue.notificacao}")
     public void processarEventoConsulta(ConsultaEvent evento) {
         try {
             System.out.println("Recebido evento de consulta para notificação: " + evento.getTipoEvento() + 

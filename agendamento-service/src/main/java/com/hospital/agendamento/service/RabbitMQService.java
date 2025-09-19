@@ -15,12 +15,12 @@ public class RabbitMQService {
     @Value("${rabbitmq.exchange.consultas}")
     private String consultasExchange;
     
-    @Value("${rabbitmq.routing.key.notificacoes}")
-    private String notificacoesRoutingKey;
+    @Value("${rabbitmq.routing.key.notificacao}")
+    private String notificacaoRoutingKey;
     
     public void enviarEventoConsulta(ConsultaEvent evento) {
         try {
-            rabbitTemplate.convertAndSend(consultasExchange, notificacoesRoutingKey, evento);
+            rabbitTemplate.convertAndSend(consultasExchange, notificacaoRoutingKey, evento);
             System.out.println("Evento enviado: " + evento.getTipoEvento() + " - Consulta ID: " + evento.getConsulta().getId());
         } catch (Exception e) {
             System.err.println("Erro ao enviar evento para RabbitMQ: " + e.getMessage());

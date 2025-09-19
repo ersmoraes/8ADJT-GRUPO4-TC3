@@ -38,10 +38,10 @@ rabbitmq:
   exchange:
     consultas: consultas.exchange
   queue:
-    notificacoes: notificacoes.queue
+    notificacao: notificacao.queue
   routing:
     key:
-      notificacoes: consulta.notificacao
+      notificacao: consulta.notificacao
 
 logging:
   level:
