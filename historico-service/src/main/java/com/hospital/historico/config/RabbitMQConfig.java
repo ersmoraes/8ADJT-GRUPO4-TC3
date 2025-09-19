@@ -8,19 +8,22 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.backoff.ExponentialBackOffPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
 public class RabbitMQConfig {
-    
+
     @Value("${rabbitmq.exchange.consultas}")
     private String consultasExchange;
-    
+
     @Value("${rabbitmq.queue.historico}")
     private String historicoQueue;
     
     @Value("${rabbitmq.routing.key.historico}")
     private String historicoRoutingKey;
-    
+
     /**
      * Configura o exchange principal para eventos de consultas
      * Topic Exchange permite roteamento flexível baseado em routing keys
@@ -32,7 +35,7 @@ public class RabbitMQConfig {
                 .durable(true) // Exchange persiste mesmo após restart do RabbitMQ
                 .build();
     }
-    
+
     /**
      * Configura a fila específica para o serviço de histórico
      * Fila durável para garantir que as mensagens não sejam perdidas
@@ -111,17 +114,15 @@ public class RabbitMQConfig {
     /**
      * Configuração de retry para reenvio automático em caso de falha
      */
-    private org.springframework.retry.support.RetryTemplate retryTemplate() {
-        org.springframework.retry.support.RetryTemplate retryTemplate = 
-            new org.springframework.retry.support.RetryTemplate();
+    private RetryTemplate retryTemplate() {
+        RetryTemplate retryTemplate =
+            new RetryTemplate();
             
         // Política de retry: 3 tentativas com intervalo exponencial
-        org.springframework.retry.policy.SimpleRetryPolicy retryPolicy = 
-            new org.springframework.retry.policy.SimpleRetryPolicy();
+        SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
         retryPolicy.setMaxAttempts(3);
         
-        org.springframework.retry.backoff.ExponentialBackOffPolicy backOffPolicy = 
-            new org.springframework.retry.backoff.ExponentialBackOffPolicy();
+        ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
         backOffPolicy.setInitialInterval(1000); // 1 segundo
         backOffPolicy.setMultiplier(2.0); // Dobra o tempo a cada tentativa
         backOffPolicy.setMaxInterval(10000); // Máximo 10 segundos

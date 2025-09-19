@@ -1,9 +1,8 @@
 package com.hospital.historico.graphql;
 
+import com.hospital.common.enums.StatusConsulta;
 import com.hospital.historico.model.HistoricoConsulta;
 import com.hospital.historico.service.HistoricoService;
-import com.hospital.common.enums.StatusConsulta;
-import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class ConsultaQueryResolver implements GraphQLQueryResolver {
+public class ConsultaQueryResolver {
     
     @Autowired
     private HistoricoService historicoService;
