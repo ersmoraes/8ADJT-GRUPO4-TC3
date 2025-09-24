@@ -35,29 +35,27 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    loginRequest.getUsername(), 
+                    loginRequest.getUsername(),
                     loginRequest.getPassword()
                 )
             );
-            
+
             UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
             String token = jwtUtil.generateToken(userDetails);
-            
+
             Usuario usuario = usuarioRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            
             return ResponseEntity.ok(new JwtResponse(
-                token, 
-                usuario.getUsername(), 
-                usuario.getNome(), 
+                token,
+                usuario.getUsername(),
+                usuario.getNome(),
                 usuario.getTipoUsuario().getRole()
             ));
-            
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Credenciais inválidas");
         }
     }
-    
+
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
         if (authentication == null) {
