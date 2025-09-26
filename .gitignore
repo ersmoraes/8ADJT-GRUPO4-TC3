@@ -23,6 +23,14 @@ notificacao-service/target/
 *.iml
 *.ipr
 
+### Eclipse-specific files ###
+.settings/
+*.launch
+*.prefs
+*.bak
+*.swp
+.metadata/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
