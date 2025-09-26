@@ -25,20 +25,12 @@ spring:
     listener:
       simple:
         default-requeue-rejected: false
-
-graphql:
-  servlet:
-    mapping: /graphql
-    enabled: true
-    corsEnabled: true
-  tools:
-    schema-location-pattern: "**/*.graphqls"
-
-graphiql:
-  mapping: /graphiql
-  endpoint:
-    graphql: /graphql
-  enabled: true
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true   # enables GraphiQL UI at /graphiql
+    schema:
+      locations: classpath:graphql/   # where .graphqls schema files live
 
 rabbitmq:
   exchange:
