@@ -1,0 +1,931 @@
+{
+	"info": {
+		"_postman_id": "129995cb-f7e4-48f3-b77a-63d7a8b8c204",
+		"name": "Hospital System API",
+		"description": "Collection completa para testar o Sistema Hospitalar\n\n##  Como usar:\n1. **Configure as variáveis de ambiente**\n2. **Execute o login** para obter o token JWT\n3. **Teste os endpoints** na sequência sugerida\n\n## Usuários de teste:\n- **admin** / password123 (MEDICO)\n- **dr.silva** / password123 (MEDICO)\n- **enf.ana** / password123 (ENFERMEIRO)\n- **paciente1** / password123 (PACIENTE)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10740284"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('jwt_token', response.token);",
+									"    pm.environment.set('current_user', response.username);",
+									"    pm.environment.set('user_role', response.role);",
+									"    console.log('Login realizado com sucesso!');",
+									"    console.log('Usuário:', response.nome);",
+									"    console.log('Role:', response.role);",
+									"} else {",
+									"    console.log(' Falha no login');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Médico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('jwt_token', response.token);",
+									"    pm.environment.set('current_user', response.username);",
+									"    pm.environment.set('user_role', response.role);",
+									"    console.log('Login Médico realizado com sucesso!');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"dr.silva\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Enfermeiro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('jwt_token', response.token);",
+									"    pm.environment.set('current_user', response.username);",
+									"    pm.environment.set('user_role', response.role);",
+									"    console.log('Login realizado com sucesso!');",
+									"    console.log('Usuário:', response.nome);",
+									"    console.log('Role:', response.role);",
+									"} else {",
+									"    console.log('Falha no login');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"enf.ana\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Paciente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('jwt_token', response.token);",
+									"    pm.environment.set('current_user', response.username);",
+									"    pm.environment.set('user_role', response.role);",
+									"    console.log('Login realizado com sucesso!');",
+									"    console.log('Usuário:', response.nome);",
+									"    console.log('Role:', response.role);",
+									"} else {",
+									"    console.log('Falha no login');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"paciente1\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{base_url}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Dados do Usuário Logado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const user = pm.response.json();",
+									"    console.log('Usuário atual:', user.nome);",
+									"    console.log('Email:', user.email);",
+									"    console.log('Tipo:', user.tipoUsuario);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": "{{base_url}}/api/auth/me"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Criar Consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 201 - Consulta criada', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"if (pm.response.code === 201) {",
+									"    const consulta = pm.response.json();",
+									"    pm.environment.set('consulta_id', consulta.id);",
+									"    console.log('Consulta criada com ID:', consulta.id);",
+									"    console.log('Data:', consulta.dataHora);",
+									"    console.log('Status:', consulta.status);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pacienteId\": 6,\n    \"medicoId\": 2,\n    \"dataHora\": \"2025-09-30T14:30:00\",\n    \"observacoes\": \"Consulta de retorno - Exames solicitados na consulta anterior\",\n    \"status\": \"AGENDADA\"\n}"
+						},
+						"url": "{{base_url}}/api/consultas"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todas as Consultas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const consultas = pm.response.json();",
+									"    console.log(`Total de consultas: ${consultas.length}`);",
+									"    consultas.forEach((consulta, index) => {",
+									"        console.log(`${index + 1}. ID: ${consulta.id} - ${consulta.dataHora} - ${consulta.status}`);",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": "{{base_url}}/api/consultas"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultas Futuras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const consultas = pm.response.json();",
+									"    console.log(`Consultas futuras: ${consultas.length}`);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": "{{base_url}}/api/consultas/futuras"
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Consulta por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const consulta = pm.response.json();",
+									"    console.log('Consulta ID:', consulta.id);",
+									"    console.log('Médico:', consulta.medico.nome);",
+									"    console.log('Paciente:', consulta.paciente.nome);",
+									"    console.log('Data:', consulta.dataHora);",
+									"    console.log('Observações:', consulta.observacoes);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": "{{base_url}}/api/consultas/{{consulta_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200 - Consulta atualizada', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const consulta = pm.response.json();",
+									"    console.log('Consulta atualizada:', consulta.id);",
+									"    console.log('Novo status:', consulta.status);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2025-12-26T15:00:00\",\n    \"observacoes\": \"Consulta reagendada - Paciente solicitou alteração de horário\",\n    \"status\": \"CONFIRMADA\"\n}"
+						},
+						"url": "{{base_url}}/api/consultas/{{consulta_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200 - Consulta cancelada', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    console.log('Consulta cancelada com sucesso');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": "{{base_url}}/api/consultas/{{consulta_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GraphQL - Histórico",
+			"item": [
+				{
+					"name": "Consultas por Paciente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const result = pm.response.json();",
+									"    if (result.data && result.data.consultasPorPaciente) {",
+									"        console.log(`Consultas encontradas: ${result.data.consultasPorPaciente.length}`);",
+									"        result.data.consultasPorPaciente.forEach((consulta, index) => {",
+									"            console.log(`${index + 1}. ${consulta.dataHora} - ${consulta.status} - Dr. ${consulta.medicoNome}`);",
+									"        });",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ConsultasPorPaciente($pacienteId: ID!) {\r\n    consultasPorPaciente(pacienteId: $pacienteId) {\r\n        consultaId pacienteNome medicoNome dataHora status observacoes dataAtualizacao \r\n    } \r\n}",
+								"variables": "{\r\n    \"pacienteId\": \"6\"\r\n}"
+							}
+						},
+						"url": "{{historico_url}}/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultas por Médico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const result = pm.response.json();",
+									"    if (result.data && result.data.consultasPorMedico) {",
+									"        console.log(`Consultas do médico: ${result.data.consultasPorMedico.length}`);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ConsultasPorMedico($medicoId: ID!) {\r\n    consultasPorMedico(medicoId: $medicoId) {\r\n        consultaId pacienteNome medicoNome dataHora status observacoes\r\n    }\r\n}",
+								"variables": "{\r\n    \"medicoId\": \"2\"\r\n}"
+							}
+						},
+						"url": "{{historico_url}}/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultas por Período",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const result = pm.response.json();",
+									"    if (result.data && result.data.consultasPorPeriodo) {",
+									"        console.log(`Consultas no período: ${result.data.consultasPorPeriodo.length}`);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ConsultasPorPeriodo($dataInicio: String!, $dataFim: String!) {\r\n    consultasPorPeriodo(dataInicio: $dataInicio, dataFim: $dataFim) {\r\n        consultaId pacienteNome medicoNome dataHora status observacoes\r\n    }\r\n}",
+								"variables": "{\r\n    \"dataInicio\": \"2025-09-28T00:00:00\",\r\n    \"dataFim\": \"2025-10-01T23:59:59\"\r\n}"
+							}
+						},
+						"url": "{{historico_url}}/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultas por Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const result = pm.response.json();",
+									"    if (result.data && result.data.consultasPorStatus) {",
+									"        console.log(`Consultas com status AGENDADA: ${result.data.consultasPorStatus.length}`);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ConsultasPorStatus($status: StatusConsulta!) {\r\n    consultasPorStatus(status: $status) {\r\n        consultaId pacienteNome medicoNome dataHora status observacoes\r\n    }\r\n}",
+								"variables": "{\r\n    \"status\": \"AGENDADA\"\r\n}"
+							}
+						},
+						"url": "{{historico_url}}/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Todas as Consultas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const result = pm.response.json();",
+									"    if (result.data && result.data.todasConsultas) {",
+									"        console.log(`Total de consultas no histórico: ${result.data.todasConsultas.length}`);",
+									"        const statusCount = {};",
+									"        result.data.todasConsultas.forEach(consulta => {",
+									"            statusCount[consulta.status] = (statusCount[consulta.status] || 0) + 1;",
+									"        });",
+									"        console.log('Por status:', statusCount);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query TodasConsultas {\r\n    todasConsultas {\r\n        consultaId pacienteNome medicoNome dataHora status observacoes dataAtualizacao\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "{{historico_url}}/graphql"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notificações",
+			"item": [
+				{
+					"name": "Listar Notificações Pendentes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    const notificacoes = pm.response.json();",
+									"    console.log(`Notificações pendentes: ${notificacoes.length}`);",
+									"    notificacoes.forEach((notif, index) => {",
+									"        console.log(`${index + 1}. Consulta ${notif.consultaId} - ${notif.pacienteNome} - ${notif.tipoEvento}`);",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{notificacao_url}}/api/notificacoes/pendentes"
+					},
+					"response": []
+				},
+				{
+					"name": "Reprocessar Notificações Pendentes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    console.log('Notificações reprocessadas com sucesso');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{notificacao_url}}/api/notificacoes/reprocessar"
+					},
+					"response": []
+				},
+				{
+					"name": "Enviar Lembretes Manuais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    console.log('Lembretes processados com sucesso');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{notificacao_url}}/api/notificacoes/lembretes"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🔧 Testes de Cenários",
+			"item": [
+				{
+					"name": "Fluxo Completo - Criar e Acompanhar Consulta",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Iniciando fluxo completo de consulta...');",
+									"// Gerar data futura aleatória",
+									"const futureDate = new Date();",
+									"futureDate.setDate(futureDate.getDate() + Math.floor(Math.random() * 30) + 1);",
+									"const isoDate = futureDate.toISOString().slice(0, 19);",
+									"pm.environment.set('random_future_date', isoDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Fluxo completo executado', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"if (pm.response.code === 201) {",
+									"    const consulta = pm.response.json();",
+									"    pm.environment.set('test_consulta_id', consulta.id);",
+									"    console.log('Consulta de teste criada:', consulta.id);",
+									"    console.log('Email será enviado automaticamente via RabbitMQ');",
+									"    console.log('Histórico será atualizado automaticamente');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pacienteId\": 7,\n    \"medicoId\": 3,\n    \"dataHora\": \"{{random_future_date}}\",\n    \"observacoes\": \"Consulta de teste automática - Fluxo completo do sistema\",\n    \"status\": \"AGENDADA\"\n}"
+						},
+						"url": "{{base_url}}/api/consultas"
+					},
+					"response": []
+				},
+				{
+					"name": "Teste de Autorização - Paciente tentando criar consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 403 - Acesso negado corretamente', function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"console.log('Teste de segurança: Paciente não pode criar consultas');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pacienteId\": 6,\n    \"medicoId\": 2,\n    \"dataHora\": \"2024-12-30T10:00:00\",\n    \"observacoes\": \"Teste de autorização - deve falhar\"\n}"
+						},
+						"url": "{{base_url}}/api/consultas"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"// Script global executado antes de cada request",
+					"console.log('Executando request:', pm.info.requestName);",
+					"",
+					"// Verificar se token está válido (se necessário)",
+					"if (pm.request.headers.has('Authorization')) {",
+					"    const token = pm.environment.get('jwt_token');",
+					"    if (!token) {",
+					"        console.log('Token JWT não encontrado. Execute o login primeiro.');",
+					"    }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"// Script global executado após cada response",
+					"console.log('Response recebida:', pm.response.status, pm.response.code);",
+					"",
+					"// Log de erros detalhado",
+					"if (pm.response.code >= 400) {",
+					"    console.log('Erro detectado:');",
+					"    console.log('Status:', pm.response.status);",
+					"    console.log('Body:', pm.response.text());",
+					"}",
+					"",
+					"// Validação básica de response time",
+					"pm.test('Response time < 5000ms', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8081"
+		},
+		{
+			"key": "historico_url",
+			"value": "http://localhost:8082"
+		},
+		{
+			"key": "notificacao_url",
+			"value": "http://localhost:8083"
+		},
+		{
+			"key": "jwt_token",
+			"value": ""
+		},
+		{
+			"key": "current_user",
+			"value": ""
+		},
+		{
+			"key": "user_role",
+			"value": ""
+		},
+		{
+			"key": "consulta_id",
+			"value": ""
+		},
+		{
+			"key": "test_consulta_id",
+			"value": ""
+		},
+		{
+			"key": "random_future_date",
+			"value": ""
+		}
+	]
+}
