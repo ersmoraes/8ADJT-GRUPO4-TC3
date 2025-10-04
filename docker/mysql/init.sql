@@ -2,6 +2,12 @@ CREATE DATABASE IF NOT EXISTS hospital_agendamento;
 CREATE DATABASE IF NOT EXISTS hospital_historico;
 CREATE DATABASE IF NOT EXISTS hospital_notificacao;
 
+-- Concede todas as permissões ao usuário root
+GRANT ALL PRIVILEGES ON hospital_agendamento.* TO 'root'@'%';
+GRANT ALL PRIVILEGES ON hospital_historico.* TO 'root'@'%';
+GRANT ALL PRIVILEGES ON hospital_notificacao.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+
 USE hospital_agendamento;
 
 -- Tabela de usuários será criada automaticamente pelo Hibernate

@@ -17,7 +17,7 @@ services:
       - hospital-network
 
   rabbitmq:
-    image: rabbitmq:3.8-management
+    image: rabbitmq:3.8-management-alpine
     container_name: hospital-rabbitmq
     restart: always
     environment:

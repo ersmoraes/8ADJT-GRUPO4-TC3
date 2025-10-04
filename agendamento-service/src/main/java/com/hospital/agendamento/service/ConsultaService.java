@@ -100,7 +100,9 @@ public class ConsultaService {
         if (request.getStatus() != null) {
             consulta.setStatus(request.getStatus());
         }
-        
+
+        consulta.setDataAtualizacao(LocalDateTime.now());
+
         consulta = consultaRepository.save(consulta);
         
         // Enviar evento para o RabbitMQ
