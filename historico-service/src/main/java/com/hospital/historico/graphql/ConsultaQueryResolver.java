@@ -4,43 +4,52 @@ import com.hospital.common.enums.StatusConsulta;
 import com.hospital.historico.model.HistoricoConsulta;
 import com.hospital.historico.service.HistoricoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Component
+@Controller
 public class ConsultaQueryResolver {
-    
+
     @Autowired
     private HistoricoService historicoService;
-    
-    public List<HistoricoConsulta> consultasPorPaciente(Long pacienteId) {
+
+    @QueryMapping
+    public List<HistoricoConsulta> consultasPorPaciente(@Argument Long pacienteId) {
         return historicoService.buscarConsultasPorPaciente(pacienteId);
     }
-    
-    public List<HistoricoConsulta> consultasPorMedico(Long medicoId) {
+
+    @QueryMapping
+    public List<HistoricoConsulta> consultasPorMedico(@Argument Long medicoId) {
         return historicoService.buscarConsultasPorMedico(medicoId);
     }
-    
-    public List<HistoricoConsulta> consultasPorStatus(StatusConsulta status) {
+
+    @QueryMapping
+    public List<HistoricoConsulta> consultasPorStatus(@Argument StatusConsulta status) {
         return historicoService.buscarConsultasPorStatus(status);
     }
-    
-    public List<HistoricoConsulta> consultasFuturasPorPaciente(Long pacienteId) {
+
+    @QueryMapping
+    public List<HistoricoConsulta> consultasFuturasPorPaciente(@Argument Long pacienteId) {
         return historicoService.buscarConsultasFuturasPorPaciente(pacienteId);
     }
-    
-    public List<HistoricoConsulta> consultasPorPeriodo(String dataInicio, String dataFim) {
+
+    @QueryMapping
+    public List<HistoricoConsulta> consultasPorPeriodo(@Argument String dataInicio, @Argument String dataFim) {
         LocalDateTime inicio = LocalDateTime.parse(dataInicio);
         LocalDateTime fim = LocalDateTime.parse(dataFim);
         return historicoService.buscarConsultasPorPeriodo(inicio, fim);
     }
-    
-    public HistoricoConsulta consultaPorId(Long consultaId) {
+
+    @QueryMapping
+    public HistoricoConsulta consultaPorId(@Argument Long consultaId) {
         return historicoService.buscarConsultaPorId(consultaId);
     }
-    
+
+    @QueryMapping
     public List<HistoricoConsulta> todasConsultas() {
         return historicoService.buscarTodasConsultas();
     }

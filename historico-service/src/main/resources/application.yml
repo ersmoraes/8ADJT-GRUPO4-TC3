@@ -25,14 +25,15 @@ spring:
     listener:
       simple:
         default-requeue-rejected: false
-
-graphql:
-  servlet:
-    mapping: /graphql
-    enabled: true
-    corsEnabled: true
-  tools:
-    schema-location-pattern: "**/*.graphqls"
+  graphql:
+    schema:
+      locations: classpath:graphql/
+    path: /graphql
+    observation:
+      enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.actuate.autoconfigure.observation.graphql.GraphQlObservationAutoConfiguration
 
 graphiql:
   mapping: /graphiql
@@ -57,7 +58,6 @@ rabbitmq:
     endpoint:
       health:
         show-details: always
-
 
 logging:
   level:
