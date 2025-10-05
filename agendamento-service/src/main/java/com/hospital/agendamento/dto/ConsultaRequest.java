@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class ConsultaRequest {
     private Long pacienteId;
     private Long medicoId;
+    private String medicoNome;
     private LocalDateTime dataHora;
     private String observacoes;
     private StatusConsulta status;
@@ -18,9 +19,10 @@ public class ConsultaRequest {
     // Construtores
     public ConsultaRequest() {}
     
-    public ConsultaRequest(Long pacienteId, Long medicoId, LocalDateTime dataHora, String observacoes) {
+    public ConsultaRequest(Long pacienteId, Long medicoId, String medicoNome, LocalDateTime dataHora, String observacoes) {
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
+        this.medicoNome = medicoNome;
         this.dataHora = dataHora;
         this.observacoes = observacoes;
         this.status = StatusConsulta.AGENDADA;

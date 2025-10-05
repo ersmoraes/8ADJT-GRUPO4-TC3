@@ -68,7 +68,7 @@ public class ConsultaService {
         consulta = consultaRepository.save(consulta);
         
         // Enviar evento para o RabbitMQ
-        enviarEventoConsulta("CRIADA", consulta);
+        enviarEventoConsulta("CRIADA", consulta, medico.getNome());
         
         return consulta;
     }
@@ -106,7 +106,7 @@ public class ConsultaService {
         consulta = consultaRepository.save(consulta);
         
         // Enviar evento para o RabbitMQ
-        enviarEventoConsulta("EDITADA", consulta);
+        enviarEventoConsulta("EDITADA", consulta, request.getMedicoNome());
         
         return consulta;
     }
@@ -192,23 +192,25 @@ public class ConsultaService {
         consultaRepository.save(consulta);
         
         // Enviar evento para o RabbitMQ
-        enviarEventoConsulta("CANCELADA", consulta);
+        enviarEventoConsulta("CANCELADA", consulta, consulta.getMedico().getNome());
     }
     
-    private void enviarEventoConsulta(String tipoEvento, Consulta consulta) {
+    private void enviarEventoConsulta(String tipoEvento, Consulta consulta, String medicoNome) {
         ConsultaDTO consultaDTO = new ConsultaDTO(
             consulta.getId(),
             consulta.getPaciente().getId(),
             consulta.getMedico().getId(),
+            medicoNome,
             consulta.getDataHora(),
             consulta.getObservacoes(),
             consulta.getStatus()
         );
-        
+
         ConsultaEvent evento = new ConsultaEvent(
             tipoEvento,
             consultaDTO,
             consulta.getPaciente().getEmail(),
+            consulta.getMedico().getNome(),
             consulta.getPaciente().getNome()
         );
         

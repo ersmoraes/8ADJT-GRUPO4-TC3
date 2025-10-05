@@ -12,6 +12,7 @@ public class ConsultaDTO {
     private Long id;
     private Long pacienteId;
     private Long medicoId;
+    private String medicoNome;
     private LocalDateTime dataHora;
     private String observacoes;
     private StatusConsulta status;
@@ -19,11 +20,12 @@ public class ConsultaDTO {
     // Construtores
     public ConsultaDTO() {}
     
-    public ConsultaDTO(Long id, Long pacienteId, Long medicoId, 
+    public ConsultaDTO(Long id, Long pacienteId, Long medicoId, String medicoNome,
                       LocalDateTime dataHora, String observacoes, StatusConsulta status) {
         this.id = id;
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
+        this.medicoNome = medicoNome;
         this.dataHora = dataHora;
         this.observacoes = observacoes;
         this.status = status;
