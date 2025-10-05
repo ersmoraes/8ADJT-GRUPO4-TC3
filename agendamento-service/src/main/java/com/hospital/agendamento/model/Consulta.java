@@ -1,5 +1,6 @@
 package com.hospital.agendamento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hospital.common.enums.StatusConsulta;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Getter
 @Setter
