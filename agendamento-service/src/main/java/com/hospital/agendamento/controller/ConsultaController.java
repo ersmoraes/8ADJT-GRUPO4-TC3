@@ -2,9 +2,7 @@ package com.hospital.agendamento.controller;
 
 import com.hospital.agendamento.dto.ConsultaRequest;
 import com.hospital.agendamento.model.Consulta;
-import com.hospital.agendamento.model.Usuario;
 import com.hospital.agendamento.service.ConsultaService;
-import com.hospital.common.enums.TipoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

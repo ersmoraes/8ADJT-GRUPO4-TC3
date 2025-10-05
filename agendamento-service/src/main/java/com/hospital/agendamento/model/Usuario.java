@@ -1,12 +1,13 @@
 package com.hospital.agendamento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hospital.common.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Getter
 @Setter
