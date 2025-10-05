@@ -15,29 +15,29 @@ import java.util.List;
 @Service
 @Transactional
 public class HistoricoService {
-    
+
     @Autowired
     private HistoricoConsultaRepository historicoRepository;
-    
+
     public void processarEventoConsulta(ConsultaEvent evento) {
         ConsultaDTO consulta = evento.getConsulta();
-        
+
         // Buscar se já existe registro para esta consulta
         HistoricoConsulta historico = historicoRepository.findById(consulta.getId())
             .orElse(null);
-        
+
         if (historico == null) {
             // Criar novo registro
             historico = new HistoricoConsulta(
-                consulta.getId(),
-                consulta.getPacienteId(),
-                consulta.getMedicoId(),
-                evento.getPacienteNome(),
-                "Dr. Médico", // TODO: buscar nome do médico
-                evento.getPacienteEmail(),
-                consulta.getDataHora(),
-                consulta.getObservacoes(),
-                consulta.getStatus()
+                    consulta.getId(),
+                    consulta.getPacienteId(),
+                    consulta.getMedicoId(),
+                    consulta.getMedicoNome(),
+                    evento.getPacienteNome(),
+                    evento.getPacienteEmail(),
+                    consulta.getDataHora(),
+                    consulta.getObservacoes(),
+                    consulta.getStatus()
             );
         } else {
             // Atualizar registro existente
@@ -46,37 +46,37 @@ public class HistoricoService {
             historico.setStatus(consulta.getStatus());
             historico.setDataAtualizacao(LocalDateTime.now());
         }
-        
+
         historicoRepository.save(historico);
-        
-        System.out.println("Histórico processado para consulta ID: " + consulta.getId() + 
+
+        System.out.println("Histórico processado para consulta ID: " + consulta.getId() +
                           " - Evento: " + evento.getTipoEvento());
     }
-    
+
     public List<HistoricoConsulta> buscarConsultasPorPaciente(Long pacienteId) {
         return historicoRepository.findHistoricoPorPacienteOrdenado(pacienteId);
     }
-    
+
     public List<HistoricoConsulta> buscarConsultasPorMedico(Long medicoId) {
         return historicoRepository.findByMedicoId(medicoId);
     }
-    
+
     public List<HistoricoConsulta> buscarConsultasPorStatus(StatusConsulta status) {
         return historicoRepository.findByStatus(status);
     }
-    
+
     public List<HistoricoConsulta> buscarConsultasFuturasPorPaciente(Long pacienteId) {
         return historicoRepository.findConsultasFuturasPorPaciente(pacienteId, LocalDateTime.now());
     }
-    
+
     public List<HistoricoConsulta> buscarConsultasPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
         return historicoRepository.findConsultasPorPeriodo(dataInicio, dataFim);
     }
-    
+
     public HistoricoConsulta buscarConsultaPorId(Long consultaId) {
         return historicoRepository.findById(consultaId).orElse(null);
     }
-    
+
     public List<HistoricoConsulta> buscarTodasConsultas() {
         return historicoRepository.findAll();
     }
