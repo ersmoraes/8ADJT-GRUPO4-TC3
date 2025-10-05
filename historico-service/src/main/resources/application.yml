@@ -26,11 +26,20 @@ spring:
       simple:
         default-requeue-rejected: false
   graphql:
-    path: /graphql
-    graphiql:
-      enabled: true   # enables GraphiQL UI at /graphiql
     schema:
-      locations: classpath:graphql/   # where .graphqls schema files live
+      locations: classpath:graphql/
+    path: /graphql
+    observation:
+      enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.actuate.autoconfigure.observation.graphql.GraphQlObservationAutoConfiguration
+
+graphiql:
+  mapping: /graphiql
+  endpoint:
+    graphql: /graphql
+  enabled: true
 
 rabbitmq:
   exchange:
@@ -49,7 +58,6 @@ rabbitmq:
     endpoint:
       health:
         show-details: always
-
 
 logging:
   level:

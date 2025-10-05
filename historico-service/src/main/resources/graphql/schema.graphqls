@@ -1,3 +1,5 @@
+scalar DateTime
+
 type HistoricoConsulta {
     consultaId: ID!
     pacienteId: ID!
@@ -5,10 +7,10 @@ type HistoricoConsulta {
     pacienteNome: String!
     medicoNome: String!
     pacienteEmail: String!
-    dataHora: String!
+    dataHora: DateTime!
     observacoes: String
     status: StatusConsulta!
-    dataAtualizacao: String!
+    dataAtualizacao: DateTime!
 }
 
 enum StatusConsulta {
@@ -24,7 +26,7 @@ type Query {
     consultasPorMedico(medicoId: ID!): [HistoricoConsulta]
     consultasPorStatus(status: StatusConsulta!): [HistoricoConsulta]
     consultasFuturasPorPaciente(pacienteId: ID!): [HistoricoConsulta]
-    consultasPorPeriodo(dataInicio: String!, dataFim: String!): [HistoricoConsulta]
+    consultasPorPeriodo(dataInicio: DateTime!, dataFim: DateTime!): [HistoricoConsulta]
     consultaPorId(consultaId: ID!): HistoricoConsulta
     todasConsultas: [HistoricoConsulta]
 }
