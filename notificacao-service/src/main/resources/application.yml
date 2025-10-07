@@ -23,16 +23,18 @@ spring:
     username: guest
     password: guest
   mail:
-    host: smtp.gmail.com
+    host: sandbox.smtp.mailtrap.io
     port: 587
-    username: 8adjt.grupo4@gmail.com
-    password: passwordGRUPO4
+    username: 70a35e6b903529
+    password: a61ab5d7734aea
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+          ssl:
+            enable: false
 
 rabbitmq:
   exchange:

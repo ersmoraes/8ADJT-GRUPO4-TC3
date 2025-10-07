@@ -14,20 +14,20 @@ public class EmailService {
     
     @Autowired
     private JavaMailSender mailSender;
-    
+
     @Value("${spring.mail.username}")
     private String remetente;
-    
+
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
     public void enviarNotificacaoConsulta(Notificacao notificacao) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(remetente);
             message.setTo(notificacao.getPacienteEmail());
             message.setSubject(getAssuntoEmail(notificacao.getTipoEvento()));
             message.setText(getCorpoEmail(notificacao));
-            
+            message.setFrom(remetente);
+
             mailSender.send(message);
             
             System.out.println("Email enviado com sucesso para: " + notificacao.getPacienteEmail());
@@ -44,7 +44,7 @@ public class EmailService {
             message.setTo(notificacao.getPacienteEmail());
             message.setSubject("Lembrete: Consulta médica agendada");
             message.setText(getCorpoLembrete(notificacao));
-            
+
             mailSender.send(message);
             
             System.out.println("Lembrete enviado com sucesso para: " + notificacao.getPacienteEmail());
